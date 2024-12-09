@@ -5,6 +5,9 @@
         <h1 class="card-title" v-if="isLogin">LOGIN</h1>
         <h1 class="card-title" v-else>REGISTER</h1>
         <div class="card-body">
+          
+
+
           <form @submit.prevent="submitForm">
             <div
               class="form-group"
@@ -62,7 +65,7 @@
             <p class="mt-3" v-else>
               Already Registered? <router-link class="router-link" to="/login">Login</router-link>
             </p>
-          </form>
+          </form>  
         </div>
       </div>
     </div>
@@ -70,8 +73,12 @@
 </template>
 
 <script>
+
+
 export default {
   props: ["logOrReg"],
+ 
+
   data() {
     return {
       email: {
@@ -89,6 +96,7 @@ export default {
       formIsValid: true,
     };
   },
+
   computed: {
     isLogin() {
       if (this.logOrReg === "login") {
@@ -130,16 +138,23 @@ export default {
           email: this.email.val,
           password: this.password.val,
         };
-        await this.$store.dispatch("login", userData);
-        this.$router.replace("articles");
+        const isSuccess = await this.$store.dispatch("login", userData);
+        if(isSuccess){
+          this.$router.replace("articles");
+
+        }
       } else {
         userData = {
           username: this.user.val,
           email: this.email.val,
           password: this.password.val,
         };
-        await this.$store.dispatch("signUp", userData);
-        this.$router.push("articles");
+        const isSuccess = await this.$store.dispatch("signUp", userData);
+        if(isSuccess){
+          this.$router.replace("articles");
+
+        }
+        
       }
     },
   },

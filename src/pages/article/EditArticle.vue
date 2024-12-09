@@ -4,7 +4,7 @@
 
 
 <script>
-import articleForm from '../components/article/articleForm.vue'
+import articleForm from '../../components/article/articleForm.vue'
 
 export default {
     components:{

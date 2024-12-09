@@ -8,6 +8,8 @@ axios.interceptors.request.use((config) => {
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+    config.headers["Content-Type"] = "application/json";
+    config.headers["x-requested-with"] = "XMLHttpRequest";
   }
   return config;
 });
@@ -22,7 +24,7 @@ axios.interceptors.response.use(
       return;
     }
 
-    const { data, status } = error.response;
+    const { data,status } = error.response;
     const errors = data.errors;
 
     let messages = [];
@@ -34,19 +36,21 @@ axios.interceptors.response.use(
 
       case 401:
         $toast.error("Your token has been expired.");
-        this.$router.push('/login')
+        window.location.href = '/login';
         break;
 
       case 500:
         $toast.error("Server error");
         break;
-      default:
-        if (data.message) messages = [data.message];
-        else if (errors)
-          messages = Object.keys(errors).map((key) => key + " " + errors[key]);
 
-        if (!messages.length) $toast.error("Something went wrong.");
-        else $toast.error(messages.join("<br/>"));
+
+      default:
+         if (data.message) messages = [data.message];
+         else if (errors)
+           messages = Object.keys(errors).map((key) => key + " " + errors[key]);
+
+         if (!messages.length) $toast.error("Something went wrong.");
+         else $toast.error(messages.join("<br/>"));
 
         return;
     }

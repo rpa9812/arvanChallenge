@@ -14,6 +14,7 @@ import "vue-toast-notification/dist/theme-sugar.css";
 import TheHeader from './components/layout/TheHeader.vue'
 import SideBar from './components/layout/SideBar.vue';
 import BaseModal from './components/ui/BaseModal.vue';
+import BaseInput from './components/ui/BaseInput.vue';
 import "./configs/axios";
 
 
@@ -31,6 +32,7 @@ app.use(ToastPlugin)
 app.component('the-header',TheHeader)
 app.component('side-bar',SideBar)
 app.component('base-modal',BaseModal)
+app.component('base-input',BaseInput)
 
 
 

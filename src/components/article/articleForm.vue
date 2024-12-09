@@ -72,7 +72,7 @@
               @keydown.enter="handleEnter"
             />
             <div class="border p-3">
-              <ul class="list-unstyled" v-for="tag in tags" :key="tag">
+              <ul class="list-unstyled" v-for="tag in sortedTags" :key="tag">
                 <li>
                   <div>
                     <input
@@ -128,6 +128,7 @@ export default {
     };
   },
   methods: {
+ 
     isChecked(item) {
       return this.selectedTags.includes(item);
     },
@@ -169,20 +170,23 @@ export default {
         body: this.body.val,
         selectedTags: this.selectedTags,
       };
-      if(this.editOrCreate === 'edit'){
-        await this.$store.dispatch('article/editArticle',[this.$route.params.slug,createArticleData])
-      }else{
-        await this.$store.dispatch("article/createArticle", createArticleData);
+      var isSuccess = false;
+      if (this.editOrCreate === "edit") {
+        isSuccess = await this.$store.dispatch("article/editArticle", [
+          this.$route.params.slug,
+          createArticleData,
+        ]);
+      } else {
+        isSuccess = await this.$store.dispatch(
+          "article/createArticle",
+          createArticleData
+        );
       }
 
-     
-      this.$router.push('/articles')
-      // this.isLoading = false;
-      // this.title.val = "";
-      // this.description.val = "";
-      // this.body.val = "";
-      // this.selectedTags = [];
-      console.log(createArticleData);
+      if (isSuccess) {
+        this.$router.push("/articles");
+      }
+
     },
   },
   async created() {
@@ -190,44 +194,41 @@ export default {
       this.isLoading = true;
       await this.$store.dispatch("tag/getTags");
       if (this.editOrCreate === "edit") {
-        await this.$store.dispatch("article/getSingleArticle",this.$route.params.slug);
+        await this.$store.dispatch(
+          "article/getSingleArticle",
+          this.$route.params.slug
+        );
         this.currentArticle = await this.$store.getters[
           "article/currentArticle"
         ];
         this.title.val = this.currentArticle.title;
         this.description.val = this.currentArticle.description;
         this.body.val = this.currentArticle.body;
-        this.selectedTags = this.currentArticle.tagList
+        this.selectedTags = this.currentArticle.tagList;
+      }
+      for(var i=0; i < this.selectedTags.length;i++){
+        if(!this.tags.includes(this.selectedTags[i])){
+          this.tags.push(this.selectedTags[i])
+
+        }
+
       }
       this.isLoading = false;
 
-      // this.tagList =await  this.$store.getters["tag/tags"]
-      // console.log('tagList:' +this.tagList)
     } catch (err) {
       return;
     }
   },
   computed: {
     ...mapGetters({
-      tags: "tag/tags",
+       tags: "tag/tags",
     }),
 
-    //  tags() {
-    //   console.log('computed')
+    sortedTags() {
+      return (this.tags ?? []).slice().sort((a, b) => a.localeCompare(b));
+    }
 
-    //     let sortedTags = []
-
-    //     sortedTags = this.tagList.slice().sort((a, b) =>
-    //     a.localeCompare(b))
-
-    //      return sortedTags
-
-    //  }
-  },
-  beforeUpdate() {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    this.tags.slice().sort((a, b) => a.localeCompare(b));
-  },
+  }
 };
 </script>
 
