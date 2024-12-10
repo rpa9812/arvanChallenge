@@ -39,13 +39,13 @@
                   >
                 </li>
                 <li>
-                  <button
-                    class="dropdown-item"
+                  <the-button
+                    buttonClass="dropdown-item"
                     @click="showDialog(article.slug)"
                     href="#"
                   >
                     Delete
-                  </button>
+                  </the-button>
                 </li>
               </ul>
             </div>
@@ -57,7 +57,9 @@
 </template>
 
 <script>
+import TheButton from '../ui/TheButton.vue';
 export default {
+  components: { TheButton },
   props: ["headerTitles", "articleList"],
   methods: {
     formatDate(dateString) {

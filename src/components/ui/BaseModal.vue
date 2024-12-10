@@ -7,11 +7,11 @@
           <slot name="header">
           </slot>
         </header>
-        <hr />
-        <section>
+        <hr class="mt-0 border-secondary"/>
+        <section class="px-3 py-2">
           <slot></slot>
         </section>
-        <hr />
+        <hr class="mb-0 border-secondary"/>
         <menu v-if="!fixed">
           <slot name="actions">
           </slot>
@@ -77,6 +77,10 @@ dialog {
 }
 
 header {
+  height: 80px;
+  align-items: center;
+  display: flex;
+  text-align: center;
   background-color: white;
   color: black;
   width: 100%;
@@ -88,6 +92,7 @@ header h2 {
 }
 
 section {
+  height: 100px;
   padding: 0.5rem;
 }
 

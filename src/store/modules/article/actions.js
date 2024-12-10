@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useToast } from "vue-toast-notification";
+import { pageSize } from "../../../common/index.js";
 
 export default {
   async createArticle(context, payload) {
@@ -30,7 +31,7 @@ export default {
 
   async getArticleList(context, payload) {
     const response = await axios.get("/articles", {
-      params: { offset: (payload - 1) * 10, limit: 10 },
+      params: { offset: (payload - 1) * pageSize, limit: pageSize },
     });
     if (response) {
       await context.commit("setArticleList", response.data.articles);

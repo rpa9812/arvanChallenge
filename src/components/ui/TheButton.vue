@@ -1,12 +1,13 @@
 <template>
-     <button type="submit" class="btn btn-primary">{{ buttonText }}</button>
+     <button type="submit" :class="buttonClass"><slot></slot></button>
 </template>
 
 <script>
 
 
 export default {
-    props:['buttonText']
+    props:['buttonText','buttonClass'],
+
  
 }
 </script>

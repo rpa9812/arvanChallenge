@@ -33,13 +33,15 @@
             <the-button
               v-if="isLogin"
               buttonText="Login"
-              class="btn-block mt-4"
-            ></the-button>
+              buttonClass="btn btn-primary btn-block mt-4"
+             
+            >Login</the-button>
             <the-button
               v-else
               buttonText="Register"
-              class="btn-block mt-4"
-            ></the-button>
+              buttonClass="btn btn-primary btn-block mt-4"
+              
+            >Register</the-button>
 
             <p v-if="isLogin" class="mt-3">
               Dont have account?
