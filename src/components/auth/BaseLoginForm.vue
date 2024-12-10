@@ -10,29 +10,25 @@
           <h1 class="card-title" v-else>REGISTER</h1>
           <div class="card-body">
             <form @submit.prevent="submitForm">
-              <textInput
-                v-if="!isLogin"
-                v-model="formData.user"
+              <the-input 
+               v-if="!isLogin"
+              v-model="formData.user"
                 name="user"
                 label="User"
 
-                :schema="userSchema"
-
-              />
-              <text-input
-                v-model="formData.email"
+                :rules="userSchema"></the-input>
+                <the-input 
+              v-model="formData.email"
                 name="email"
                 label="Email"
 
-                 :schema="emailSchema"
-              ></text-input>
-              <text-input
-                v-model="formData.password"
+                :rules="emailSchema"></the-input>
+                <the-input 
+              v-model="formData.password"
                 name="password"
                 label="Password"
 
-               :schema="passwordSchema"
-              ></text-input>
+                :rules="passwordSchema"></the-input>
   
               <button
                 type="submit"
@@ -64,10 +60,12 @@
   
   <script>
   import * as yup from "yup";
-  import textInput from "../ui/textInput.vue";
+
+
+import TheInput from '../ui/TheInput.vue';
   
   export default {
-    components: { textInput },
+    components: { TheInput },
   
     props: ["logOrReg"],
     data() {
