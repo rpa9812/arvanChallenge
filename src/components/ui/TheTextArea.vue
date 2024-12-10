@@ -4,37 +4,31 @@
           :id="name"
           :name="name"
           :type="type"
-          :rules="rules"   
+          :rules="rules"
           v-bind="$attrs"
-          v-slot="{ field,meta  }"
-       
+           v-slot="{ field,meta }"
            
   
         >
         <label :for="name" :class="{ 'text-danger': meta?.errors?.length > 0 }">{{ label }}</label>
-        <input
+        <textarea
             v-bind="field"
-            :placeholder="placeholder"
+             :placeholder="placeholder"
+             :rows="rows"
             :class="['form-control', { 'input-invalid': meta.errors[0] }]"
-            
-          />
-          <!-- <div class="text-danger" v-for="error in meta.errors" :key="error">
-            {{ error }}
-          </div> -->
+          ></textarea>  
 
        
         </Field>
   
         <ErrorMessage :name="name" v-slot="{ message }">
           <span class="text-danger">{{ message }}</span>
-        </ErrorMessage>  
-       
-      
+        </ErrorMessage>
     </div>
   </template>
   
   <script>
-  import { Field ,ErrorMessage} from "vee-validate";
+  import { Field, ErrorMessage } from "vee-validate";
   
   export default {
     components: {
@@ -42,6 +36,7 @@
       ErrorMessage,
     },
     props: {
+        rows:{type:String,required:true},
       name: { type: String, required: true },
       label: { type: String, default: "" },
       type: { type: String, default: "text" },
@@ -50,18 +45,12 @@
         type: [String, Object],
         default: () => {},
       },
-
+      computed: {
+        hasError() {
+          return this.$attrs.error;
+        },
+      },
     },
-    methods:{
-        async handleChange() {
-      try {
-        await this.rules.validate(this.field);
-        this.message = "";
-      } catch (error) {
-        this.message = error.message;
-      }
-    },
-    }
   };
   </script>
   
