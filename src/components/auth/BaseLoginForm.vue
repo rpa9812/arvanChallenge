@@ -34,14 +34,14 @@
               v-if="isLogin"
               type="submit"
               class="btn btn-primary btn-block mt-4"
-             
-            >Login</the-button>
+              >Login</the-button
+            >
             <the-button
               v-else
               type="submit"
               class="btn btn-primary btn-block mt-4"
-              
-            >Register</the-button>
+              >Register</the-button
+            >
 
             <p v-if="isLogin" class="mt-3">
               Dont have account?
@@ -138,31 +138,19 @@ export default {
     async submitForm() {
       this.errors = {};
 
-      try {
-        const formSchema = yup.object().shape({
-          user: this.userSchema,
-          email: this.emailSchema,
-          password: this.passwordSchema,
-        });
+      const userData = this.isLogin
+        ? { email: this.formData.email, password: this.formData.password }
+        : {
+            username: this.formData.user,
+            email: this.formData.email,
+            password: this.formData.password,
+          };
 
-        await formSchema.validate(this.formData, { abortEarly: false });
+      const action = this.isLogin ? "login" : "signUp";
+      const isSuccess = await this.$store.dispatch(action, userData);
 
-        const userData = this.isLogin
-          ? { email: this.formData.email, password: this.formData.password }
-          : {
-              username: this.formData.user,
-              email: this.formData.email,
-              password: this.formData.password,
-            };
-
-        const action = this.isLogin ? "login" : "signUp";
-        const isSuccess = await this.$store.dispatch(action, userData);
-
-        if (isSuccess) {
-          this.$router.replace("articles");
-        }
-      } catch (err) {
-        console.error("Validation Errors", err.errors);
+      if (isSuccess) {
+        this.$router.replace("articles");
       }
     },
   },
@@ -208,7 +196,7 @@ input:focus {
   border-color: #3d008d;
 }
 .error {
-  color: red; /* Red color for error text */
+  color: red; 
 }
 .invalid label {
   color: red !important;
