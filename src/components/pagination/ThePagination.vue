@@ -16,7 +16,7 @@
       <the-button
         class="page-link"
         :class="{ active: currentPage === index + 1 }"
-        @click="goToPage(index + 1)"
+        @click="goToPage(currentPage + 1)"
       >
         {{ index + 1 }}
       </the-button>
