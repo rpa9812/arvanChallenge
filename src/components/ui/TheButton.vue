@@ -1,8 +1,8 @@
 <template>
-     <button type="submit" :class="buttonClass"><slot></slot></button>
+     <button v-bind="$attrs"><slot></slot></button>
 </template>
 
-<script>
+<!-- <script>
 
 
 export default {
@@ -10,4 +10,4 @@ export default {
 
  
 }
-</script>
+</script> -->

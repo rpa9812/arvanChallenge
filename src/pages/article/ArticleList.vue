@@ -1,5 +1,4 @@
 <template>
-  
   <the-header></the-header>
   <div
     class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
@@ -15,8 +14,11 @@
     <template v-slot:header>
       <div class="container-fluid d-flex align-items-center px-3 py-2">
         <h5 class="mt-1">Delete Article</h5>
-        <the-button @click="hideDialog" buttonClass="btn fs-4  fw-bold text-secondary border-0 btn-outline-primary cross-btn" class="ms-auto"
-        ><i class="bi bi-x"></i> </the-button>
+        <the-button
+          @click="hideDialog"
+          class="btn fs-4 fw-bold text-secondary border-0 btn-outline-primary cross-btn ms-auto"
+          ><i class="bi bi-x"></i>
+        </the-button>
       </div>
     </template>
 
@@ -24,8 +26,9 @@
       <p>Are you sure to delete Article?</p>
     </template>
     <template v-slot:actions>
-      <the-button @click="hideDialog" buttonClass="btn border custom-btn m-2"
-        >No</the-button>
+      <the-button @click="hideDialog" class="btn border custom-btn m-2">
+        No
+      </the-button>
       <the-button
         class="btn btn-danger border custom-btn m-2"
         @click="handleRemoveArticle(slug)"
@@ -122,8 +125,7 @@ export default {
   width: 100px;
 }
 .cross-btn:hover,
-.cross-btn:active{
+.cross-btn:active {
   background-color: transparent;
-
 }
 </style>

@@ -32,7 +32,9 @@
               placeholder="Body"
               :rules="bodySchema"
             ></the-text-area>
-             <the-button buttonClass="btn btn-primary">Submit</the-button>
+            <the-button type="submit" class="btn btn-primary">
+              Submit
+            </the-button>
 
             <div
               class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
@@ -79,18 +81,15 @@
 <script>
 import { mapGetters } from "vuex";
 import * as yup from "yup";
-import { Form } from 'vee-validate';
-import TheInput from '../ui/TheInput.vue';
+import { Form } from "vee-validate";
+import TheInput from "../ui/TheInput.vue";
 import TheTextArea from "../ui/TheTextArea.vue";
-
 
 export default {
   components: {
-
     TheInput,
     Form,
-    TheTextArea
-
+    TheTextArea,
   },
   props: ["editOrCreate"],
 
@@ -114,11 +113,7 @@ export default {
       event.preventDefault();
       this.tags.push(this.newTag);
       this.selectedTags.push(this.newTag);
-      console.log("afterPush:" + this.tags);
       this.newTag = "";
-    },
-    clearValidity(input) {
-      this[input].isValid = true;
     },
 
     async handleSubmit() {
@@ -143,7 +138,6 @@ export default {
         );
       }
 
-      console.log(isSuccess)
       if (isSuccess) {
         this.$router.push("/articles");
       }
@@ -185,22 +179,16 @@ export default {
       return (this.tags ?? []).slice().sort((a, b) => a.localeCompare(b));
     },
     titleSchema() {
-    return this.isLogin
-      ? yup.string()
-      : yup.string().required("Title is required");
-  },
-  descriptionSchema() {
-    return yup
-      .string()
-      .required("Description is required");
-  },
-  bodySchema() {
-    return yup
-      .string()
-      .required("Body is required");
-  },
-
-
+      return this.isLogin
+        ? yup.string()
+        : yup.string().required("Title is required");
+    },
+    descriptionSchema() {
+      return yup.string().required("Description is required");
+    },
+    bodySchema() {
+      return yup.string().required("Body is required");
+    },
   },
 };
 </script>

@@ -40,7 +40,7 @@
                 </li>
                 <li>
                   <the-button
-                    buttonClass="dropdown-item"
+                    class="dropdown-item"
                     @click="showDialog(article.slug)"
                     href="#"
                   >

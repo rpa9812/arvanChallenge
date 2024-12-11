@@ -1,40 +1,42 @@
 <template>
   <div class="pagination justify-content-center mt-5">
-    <button
+    <the-button
       class="page-link"
       :disabled="currentPage === 1"
       :class="{ 'disabled-button': currentPage === 1 }"
       @click="goToPage(currentPage - 1)"
     >
       &lt;
-    </button>
+    </the-button>
 
     <span
       v-for="(_, index) in Array.from({ length: totalPages })"
       :key="index + 1"
     >
-      <button
+      <the-button
         class="page-link"
         :class="{ active: currentPage === index + 1 }"
         @click="goToPage(index + 1)"
       >
         {{ index + 1 }}
-      </button>
+      </the-button>
     </span>
 
-    <button
+    <the-button
       class="page-link"
       :disabled="currentPage === totalPages"
       :class="{ 'disabled-button': currentPage === totalPages }"
       @click="goToPage(currentPage + 1)"
     >
       &gt;
-    </button>
+    </the-button>
   </div>
 </template>
 
 <script>
+import TheButton from '../ui/TheButton.vue';
 export default {
+  components: { TheButton },
   data() {
     return {
       currentPage: 1,

@@ -32,14 +32,14 @@
 
             <the-button
               v-if="isLogin"
-              buttonText="Login"
-              buttonClass="btn btn-primary btn-block mt-4"
+              type="submit"
+              class="btn btn-primary btn-block mt-4"
              
             >Login</the-button>
             <the-button
               v-else
-              buttonText="Register"
-              buttonClass="btn btn-primary btn-block mt-4"
+              type="submit"
+              class="btn btn-primary btn-block mt-4"
               
             >Register</the-button>
 
